@@ -14,7 +14,7 @@ my $ua = LWP::UserAgent->new;
 $ua->agent("MyApp/0.1 ");
 
 # Create a request
-my $req = HTTP::Request->new(GET => 'http://admin:password@192.168.1.1/RST_stattbl.htm');
+my $req = HTTP::Request->new(GET => 'http://<username>:<password>@<router IP>/RST_stattbl.htm');
 $req->content_type('text/html');
 
 while (1)
