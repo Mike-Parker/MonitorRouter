@@ -1,0 +1,6 @@
+Simple Perl script for interrogating the status of a Netgear WPN824v2 router to
+determine incoming/outgoing LAN/WLAN/WAN data rates.
+
+Uses Andreas Bernauer's driveGnuPlotStreams.pl Perl script
+(http://www.lysium.de/sw/driveGnuPlotStreams.pl) for plotting real
+time data over multiple gnuplot windows.
