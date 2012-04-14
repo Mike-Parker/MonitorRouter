@@ -3,8 +3,29 @@
 use strict;
 
 use LWP::UserAgent;
+use Config::Simple;
   
 # Create a user agent object
+
+my $config_r;
+
+if (-e './monitor_router.ini')
+{
+	my $cfg = new Config::Simple('monitor_router.ini');
+	$config_r = $cfg->param(-block=>'Config');
+	
+	if (!defined $config_r->{'ip_address'} || 
+	    !defined $config_r->{'username'}   ||
+	    !defined $config_r->{'password'})
+	{
+		print STDERR "\nERROR: Incorrect or incomplete *.ini file found. Exiting\n\n";
+	}	 
+}
+else
+{
+	print STDERR "\nERROR: No 'monitor_router.ini' file found. Exiting\n\n";
+	exit;
+}
 
 my $parsed_output_r;
 my $output_string;
@@ -14,7 +35,7 @@ my $ua = LWP::UserAgent->new;
 $ua->agent("MyApp/0.1 ");
 
 # Create a request
-my $req = HTTP::Request->new(GET => 'http://<username>:<password>@<router IP>/RST_stattbl.htm');
+my $req = HTTP::Request->new(GET => 'http://'.$config_r->{'username'}.':'.$config_r->{'password'}.'@'.$config_r->{'ip_address'}.'/RST_stattbl.htm');
 $req->content_type('text/html');
 
 while (1)
